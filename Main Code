@@ -1,3 +1,5 @@
+import streamlit as st
+
 class Appliance:
     def __init__(self, name, brand, model, quantity):
         self.name = name
