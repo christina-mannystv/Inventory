@@ -1,0 +1,74 @@
+class Appliance:
+    def __init__(self, name, brand, model, quantity):
+        self.name = name
+        self.brand = brand
+        self.model = model
+        self.quantity = quantity
+
+    def __str__(self):
+        return f"{self.quantity}x {self.brand} {self.name} (Model: {self.model})"
+
+
+class Inventory:
+    def __init__(self):
+        self.appliances = []
+
+    def add_appliance(self, appliance):
+        self.appliances.append(appliance)
+        print(f"Added: {appliance}")
+
+    def search_appliance(self, model):
+        results = [appliance for appliance in self.appliances if model.lower() in appliance.name.lower()]
+        return results
+
+    def display_inventory(self):
+        if not self.appliances:
+            print("Inventory is empty.")
+            return
+        print("Current Inventory:")
+        for appliance in self.appliances:
+            print(appliance)
+
+
+def main():
+    inventory = Inventory()
+
+    while True:
+        print("\nInventory Menu:")
+        print("1. Add Appliance")
+        print("2. Search Appliance")
+        print("3. Display Inventory")
+        print("4. Exit")
+
+        choice = input("Select an option (1-4): ")
+
+        if choice == '1':
+            name = input("Enter appliance name: ")
+            brand = input("Enter appliance brand: ")
+            model = input("Enter appliance model: ")
+            quantity = int(input("Enter quantity: "))
+            appliance = Appliance(name, brand, model, quantity)
+            inventory.add_appliance(appliance)
+
+        elif choice == '2':
+            model = input("Enter appliance name to search: ")
+            results = inventory.search_appliance(model)
+            if results:
+                print("Search Results:")
+                for appliance in results:
+                    print(appliance)
+            else:
+                print("No appliances found.")
+
+        elif choice == '3':
+            inventory.display_inventory()
+
+        elif choice == '4':
+            print("Exiting the program.")
+            break
+
+        else:
+            print("Invalid option. Please choose again.")
+
+if __name__ == "__main__":
+    main()
